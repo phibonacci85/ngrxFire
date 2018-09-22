@@ -1,0 +1,39 @@
+<h1>Order Status:
+  <span class="tag is-large"
+    [ngClass]="{
+                    'is-dark'    : pizza.status == 'submitted' ,
+                    'is-warning' : pizza.status == 'cooking',
+                    'is-primary' : pizza.status == 'on its way',
+                    'is-success' : pizza.status == 'delivered'
+                    }">
+      
+      {{ pizza.status }}
+    </span>
+</h1>
+
+<ul>
+  <li>Order Number: {{ pizza.$key }}</li>
+  <li>Topping: {{ pizza.toppings }}</li>
+  <li>Price: {{ pizza.price }}</li>
+</ul>
+
+<button (click)="cooking()">Cooking</button>
+<button (click)="delivered()">Delivered</button>
+
+<hr>
+<h1>Get Updates via Text Message</h1>
+
+<form [formGroup]="numberForm" (ngSubmit)="updatePhoneNumber()" novalidate>
+  <input type="text" formControlName="country" placeholder="1">
+  <input type="text" formControlName="area" placeholder="916">
+  <input type="text" formControlName="prefix" placeholder="555">
+  <input type="text" formControlName="line" placeholder="5555">
+
+  <input type="submit" value="Get SMS Updates" [disabled]="numberForm.invalid">
+</form>
+
+<p *ngIf="numberForm.invalid && numberForm.touched">That's not a valid phone
+  number</p>
+
+
+<h3> Updates will be texed to {{ pizza.phoneNumber || 'none' }}</h3>
